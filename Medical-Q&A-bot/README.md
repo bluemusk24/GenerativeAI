@@ -1,6 +1,6 @@
 Steps to run the project
 
-* create a virtual environment gen-env
+* create a virtual environment medic-env
 ```bash
 conda create -n medic-env python=3.10
 ```
