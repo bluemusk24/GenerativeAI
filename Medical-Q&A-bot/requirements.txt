@@ -1,0 +1,11 @@
+ctransformers
+sentence-transformers==2.2.2
+pinecone-client
+langchain
+flask
+pypdf
+langchain-pinecone
+langchain-community
+llama-cpp-python                 # required for meta llama models and the quantized model.
+python-dotenv
+-e .                             # this helps install setup.py as local package
