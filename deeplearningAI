@@ -1,0 +1,314 @@
+python3 -m venv emma   --> create virtual environment with python
+source emma/bin/activate --> activate the virtual environment
+
+
+# Install helper_function mannually:
+
+* pip install --no-deps helper_functions
+* pip install opencv-python
+* pip install imutils
+* pip install natsort
+
+# Python for Beginners lectures
+
+# Installing Packages from Deeplearming.Ai video lectures:
+
+* pip install bs4 --> for interpreting HTML web pages and extract data from html
+
+* HTML(f'<iframe src={url} width='60%' height='400'></iframe>') --> to view the webpage of a url in a jupyter notebook. This is done with the following imported python packages. reference lesson_4 notebook.
+
+* pip install aisetup --> package created by deeplearning.AI to have access to their helper functions
+eg. from aisetup import get_llm_response authenticate print_llm_response
+    response = get_llm_response(prompt)
+    print response
+
+
+
+# Topic 6: Different LLAMA models: 7B, 13B, 70B
+
+* Base Llama models: LLMs specifically trained to predict the next word based on internet text but haven't received additional training to modify their behavior.
+
+* Chat-Instructions Llama models: LLMs trained to modify their behavior to a specific chat like questions/answers or get task done like humans. e.g. llama3-7b-chat 
+
+* Code Llama models: for helping beginners to write computer codes. They are trained from llama-base models - to help in autocompletion of codes - and llama-chat-instruct models - for answering questions related to codes like humans.
+
+* Llama Guard: to detect toxic and harmful contents; ensures responsible AI
+
+# Accessing Llama 2 models
+
+* llama models can be accessed via:
+
+1. a Hosted API service to a helper function (utils.py) that calls the llama model (easiest access).
+
+2. Self-configured cloud services like AWS, Microsoft or Google cloud
+
+3. downloads of the small llama model hosted on personal computer.
+
+
+# Topic 7: Langchain 
+
+* reference evaluation notebook for evaluation of LLM applications retrievals using Langchain.
+
+
+# Topic 8: How Diffusion Models work
+
+* Diffusion Models work in generating images by removing noise from the image, using deeplearning and neural network. Basically, you send a prompt (text) to the model and it generates an image for you. eg DALLE by OPENAI.
+
+* The codes for this topic is explained in the video
+
+
+# Topic 9: Building Systems with ChatGPT API
+
+* There are 2 types of LLMs - Base LLM and Instruction-tuned LLMs.
+
+* Base models are trained on lots of data in a super computer to predict the next word. This process is called Supervise learning. 
+* Instruction-tuned LLMs are fine-tuned (further-trained) Base LLMs on examples where the output follows an input instruction, obtain human-ratings of the quality - harmless, honest, helpful - of the outputs, and use Reinforcement Learning Human Feedback (RLHF) to increase probability of generating highly-rated outputs.
+
+
+# Topic 10: Langchain Chat with Your Data
+
+* Langchain Major components: Prompts, Model, Chains, Agent, Memory
+
+
+# Topic 11: Building Applications with Gradio from Hugging Face
+
+* To build a text summarization app locally, use the code below:
+from transformers import pipeline
+
+get_completion = pipeline("summarization", model="shleifer/distilbart-cnn-12-6")
+
+def summarize(input):
+    output = get_completion(input)
+    return output[0]['summary_text']
+
+Note: ("shleifer/distilbart-cnn-12-6") is a text-summarization model from HuggingFace to create a pipeline for summary.
+
+* Building a Named Entity Recognition app
+We are using this Inference Endpoint for dslim/bert-base-NER, a 108M parameter fine-tuned BART model on the NER task.How about running it locally?
+
+from transformers import pipeline
+
+get_completion = pipeline("ner", model="dslim/bert-base-NER")
+
+def ner(input):
+    output = get_completion(input)
+    return {"text": input, "entities": output}
+
+* Ensure to run Gradio locally. I prefer Streamlit to Gradio
+
+
+# Topic 12: Evaluating and Debugging Generative AI --> WEIGHTS AND BIASES
+
+* Weights and Biases tools are used to keep track of experiments (data, model, hyperparameters) of AI/ML applications.
+
+* Diffusion models are de-noising models. They are trained to remove noise from images that are added during model training by a scheduler. Diffusion models predict the noise in an image.
+
+* d16de9f06c44bf79c6ebc7d6e035c5a59338aa1b --> Weights and Biases API key
+
+* Check the last notebook for processes in your own project
+
+
+# Topic 13: Large Language Models with Semantic Search --> COHERE
+
+* get Cohere API Key to use this embedding LLM. Mostly used to embed structured data and for reranking dense retrievals.
+
+
+# Topic 14: Finetuning LLMs
+
+* Benefits of Finetuning LLMs: 
+1. Performance - stop hallucinations, increase efficiency and consistency, reduce unwanted information.
+2. Privacy - on-prem or VPC, prevent leakage, no breaches.
+3. Cost - lower cost per request, increased transparency, greater control.
+4. Reliability - control uptime, lower latency, moderation.
+
+* Pretraining 
+1. Model at the start - zero knowledge about the world, can't form English words
+2. Next token prediction
+3. Giant corpus of text data often scraped from the internet (unlabeled)
+4. Self-supervised learning
+5. Base models
+
+* After Training
+1. learns language
+2. learns knowledge
+
+* Finetuning (Finetuned Model)
+1. refers to training further.
+2. can also be self-supervised unlabeled data and curated labeled data.
+3. much less data needed
+4. Behavior change - learn to respond more consistently, moderation, better at conversation
+5. Gain knowledge - increase knowledge of new specific concepts, correct old incorrect information
+
+* Instruction finetuning - a variant of finetuning, teaching base models to behave like a chatbot. e.g. GPT to ChatGPT. Instruction finetuning involves Data prep --> Training --> Evaluation and vice versa.
+
+* Evaluating a model 
+1. human evaluation, 
+2. Good test data is crucial - high quality, accurate, generalized and unseen in the training data
+3. Elo rankings (AB Testing) - toying with multiple models to see which one performs best. 
+
+* PEFT - Parameter Efficient Finetuning: freezing the main weights of a model (GPT3) and finetuning with less parameters -- 10000X -- of the model. After finetuning, merge the main weights of the model with the finetuned model. Though the accuracy of the finetuned model is reduced, the latency is the same.
+
+
+# Topic 15: How Business Thinkers Can Start Building AI Plugins With Semantic Kernel --> MICROSOFT
+* This topic was boring lol..
+
+
+# TOPIC 16: Understanding and Applying Text Embeddings with Vertex AI--> Google Cloud
+* Performing Similarity Search:
+1. Euclidean distance - distance between the length of each vectors
+2. Cosine Similarity - cosine angle between the vectors
+3. Dot product - combination of both the length and angle between the vectors.
+
+
+# TOPIC 17: Pair Programming with a LLM --> Google Gemini API
+# Google AI studio key (Gemini API Key) for both Gmail accounts
+* AIzaSyCPFSmBBCnp9Fmks2mdLEnIVihducbc5fk  
+* AIzaSyBetoX_myO3oN_iuJ4o9i0qMbHnTa-9gnc
+
+
+# Topic 18: Functions, Tools and Agents with LangChain 
+* Involves function calling and use of tools when LLMs work with structured data. e.g. OpenAI function calling in Langchain, Langchain Expression Language(LCEL)
+* Function calling also involves passing the LLM to an external data. e.g.  current weather conditions which the LLM is not trained on.
+* Function callings builds tools which is used to create a conversational agent. Agents comprises of multi-step reasoning.
+* Pydantic is a data validation library for python. It provides built-in methods to serialize/deserialize models to/from Json, dictionaries etc. It makes it easy to define different schemas and export those schemas to JSON.
+
+* using ollama with pydantic library:
+from ollama import chat
+from pydantic import BaseModel
+
+class Country(BaseModel):
+  name: str
+  capital: str
+  languages: list[str]
+
+response = chat(
+  messages=[
+    {
+      'role': 'user',
+      'content': 'Tell me about Canada.',
+    }
+  ],
+  model='llama3.1',
+  format=Country.model_json_schema(),
+)
+
+country = Country.model_validate_json(response.message.content)
+print(country)
+
+* Tagging is used to create structured data (typically json format) from unstructured data using an LLM. Extraction is used by an LLM to extract a list/multiple pieces of information from an unstructured text.
+
+* Agents are combination of LLMs and code. LLMs reason what steps to take and call for actions. Agents choose a tool to use to get an output.
+
+
+# Topic 19: AI Agents in LangGraph: 
+
+* AI agents deal with function calling and search on external data LLM is not trained on.
+
+* Design patterns of Agentic workflow:
+1. Planning - thinking through the steps on what to do and its outline.
+2. Tool Use - knowing what tools are available and how to use them. e.g. search tool.
+3. Reflection - refers to iteratively improving results with multiple LLMs critiquing and making useful suggestions.
+4. Multi-Agent Communication - role playing by different agents using an LLM with a unique prompt to play a unique role.
+5. Memory - tracking the progress and results over the multiple steps. 
+
+* Agent capabilities of Tool Use are related to LLM e.g. function calling for the Tool Use, but other capabilities are actually implemented outside the LLM.
+
+# Building an Agent From scratch - The ReAct (reasoning and acting) Agent will be built from scratch in Lesson 1. Here, the LLM thinks of what to do and decides an action to take; the action is then executed on the environment. It gets an observation which is passed to the LLM for it to think about again, execute an action until it decides when to stop.
+
+* LangGraph describes and orchestrate agentic control flow. It helps to create cyclic graph for having multiple conversations at the same time and remembering previous iterations and actions. It also contains PERSISTENCE that enables HUMAN-IN-THE-LOOP features.
+
+* LangGraph involves creating nodes -- LLMS, actions -- and conversational edges (decisions for the nodes to take). Check lesson 2 for the codes
+
+* Search Tools are necessary for the Agents to get up-to-date information on the data the LLM is not trained on.
+
+* Persistence keeps you around the Agent state for a particular time. It helps to go back to the state and resume the state. Persistence is necessary for long running applications. Streaming lets you see at an Agent is doing at a particular time.
+
+
+# Topic 20: Vector Databases from Embeddings to Applications - WEAVIATE
+
+* Vector Databases helps to perform Sparse search (Key-word search), Dense search (Semantic search) and Hybrid Search ( combination of Sparse and dense search)
+
+* Vector embeddings capture meaning of the data and are machine understandable format of the data.
+
+* Brute force search algorithm is used for semantic search: find the L2 distance between the query and each vector, sort all the distances, return the top K matches (most semantically similar points).
+
+* The more vectors we have, the longer for the query to find similarity between the vectors.
+
+* HSNW (Human Social Network) - everyone is connected by six degree of separation (6-acquaintance links). We all know someone, who know someone, who know everyone.
+
+
+# Topic 21: Quality and Safety for LLM Applications - WHYLABS
+
+* Check for Hallucination, toxicity of the LLM. Also, the relevance and semantic similarity of prompt to the response.
+
+* pd.set_option('display.max_colwidth', None)  --> read the full contents in every row that ends in ...
+
+
+# Topic 22: Introduction to on-device AI --> Qualcom
+
+* On-device AI involves converting LLM and infusing the models into mobile phones, drones, AI-driven cars, assembly robots, speakers etc. On-device AI involves audio & Speech (for speakers), image & videos (for phone cameras), sensors and text (for cars). 
+
+* Multimodal on-device AI models are devices with text, images, videos, sensors capabilities. On-device AI is cost effective, efficient and privacy. IT can be run run locally on device without cloud platforms.
+
+* Device in the loop development:
+1. capture the model trained in a cloud as a computational graph
+2. take the computational graph as a target for any device
+3. validate the numerics on the device with the cloud platform to get same result
+4. measure performance on the device.
+5. deploy 
+
+
+# Topic 23: Reasoning with o1 --> OpenAI
+
+* o1 is a reasoning model, which does not require much context prompting, uses chain-of-thought to reason deeply on any task given, before executing and outputting an outcome. It performs better than gpt-4.0 models.
+
+* It was finetuned using RLHF to generate a Chain-of-Thought (CoT) before answering. It has longer and higher quality than what's attained via prompting. Breaks down problems into smaller steps, corrects errors etc.
+
+
+# Topic 24: AI Agentic Design Pattern with Autogen -->  Microsoft
+
+* Autogen has a conversable agent class that can act on human intent -- send and receive messages, generate replies and interact with other agents. Conversable agents can also seek human input (human-in-the-loop) if need be. Specify human_input_mode = 'Always' (in the code) when using Conversable Agent to seek Human input.
+
+# Topic 25: Multi AI Agent Systems --> Crew AI
+
+* Multi AI agents includes: role-playing, tool use, memory, guardrail and collaboration among different AI agents.
+
+* A crew is a group of AI agents working together, either sequentially, hierarchically or asynchronously. 
+
+* Key elements of an AI agent:
+1. Role playing
+2. Tools
+3. Focus
+4. Memory
+5. Co-operation
+6. Guardrails
+
+* Characteristics of a Good Agent Tools:
+1. versatile
+2. fault-tolerant
+3. Caching implementation
+
+# Topic 26: Practical Multi AI Agent Systems --> Crew AI
+
+# Topic 27: Building Agentic RAG with LLamaIndex:
+
+* !wget "https://openreview.net/pdf?id=VtmBAGCN7o" -O metagpt.pdf --> download a file with the link and save as metagpt.pdf
+
+# Topic 28. Event Driven Agentic Workflow --> LLama Index
+
+* Workflows are regular Python classes. They are defined as a series of steps, each of which receives certain classes of events and emits certain classes of events.
+
+# Topic 29: Structured LLM Output
+* Getting a NLP response from an LLM in a JSON format
+
+
+
+
+
+Concepts of a Project:
+1. Langchain as the Framework  --> Topic 10 
+2. Cohere for embedding, reranking, sparse, dense and hybrid retrievals --> Topic 13
+3. Gradio to build a mini UI locally --> Topic 11
+4. Weights and Biases to evaluate and debug LLMs --> Topic 12
+5. Gemini LLM (if necessary) from Google Cloud --> Topic 17 
+6. Evaluation and Monitoring of LLM applications with OPIK by Comet ML (not a topic in this course).
